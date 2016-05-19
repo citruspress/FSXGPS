@@ -35,14 +35,16 @@ namespace FSXGPS
         private static void Update(IGpsBroadcastService gpsBroadcastService, IFlightSimulatorDataService flightSimulatorDataService)
         {
             flightSimulatorDataService.Update();
+            mainForm.lblStatus.Text = string.Format("Status: {0}", flightSimulatorDataService.Connected ? "Connected" : "Not connected");
+
+            if (!flightSimulatorDataService.Connected)
+                return;
 
             gpsBroadcastService.BroadcastAttitudeData(flightSimulatorDataService);
             if (ticks % 10 == 0)
             {
                 gpsBroadcastService.BroadcastGpsData(flightSimulatorDataService);
             }
-
-            mainForm.lblStatus.Text = string.Format("Status: {0}", flightSimulatorDataService.Connected ? "Connected" : "Not connected");
 
             ticks++;
         }
