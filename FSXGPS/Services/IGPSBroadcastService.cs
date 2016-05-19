@@ -2,6 +2,7 @@
 {
     internal interface IGpsBroadcastService
     {
-        void BroadcastData(IFlightSimulatorDataService flightSimulatorDataService);
+        void BroadcastGpsData(IFlightSimulatorDataService flightSimulatorDataService);
+        void BroadcastAttitudeData(IFlightSimulatorDataService flightSimulatorDataService);
     }
 }

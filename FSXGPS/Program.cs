@@ -8,6 +8,7 @@ namespace FSXGPS
     static class Program
     {
         private static MainForm mainForm;
+        private static int ticks;
 
         /// <summary>
         /// The main entry point for the application.
@@ -22,7 +23,7 @@ namespace FSXGPS
             IGpsBroadcastService gpsBroadcastService = new GpsBroadcastService();
             using (IFlightSimulatorDataService flightSimulatorDataService = new FlightSimulatorDataService(new Fsuipc()))
             {
-                using (var timer = new Timer { Interval = 1000, Enabled = true })
+                using (var timer = new Timer { Interval = 100, Enabled = true })
                 {
                     timer.Tick += (sender, eventArgs) => Update(gpsBroadcastService, flightSimulatorDataService);
 
@@ -34,8 +35,16 @@ namespace FSXGPS
         private static void Update(IGpsBroadcastService gpsBroadcastService, IFlightSimulatorDataService flightSimulatorDataService)
         {
             flightSimulatorDataService.Update();
-            gpsBroadcastService.BroadcastData(flightSimulatorDataService);
+
+            gpsBroadcastService.BroadcastAttitudeData(flightSimulatorDataService);
+            if (ticks % 10 == 0)
+            {
+                gpsBroadcastService.BroadcastGpsData(flightSimulatorDataService);
+            }
+
             mainForm.lblStatus.Text = string.Format("Status: {0}", flightSimulatorDataService.Connected ? "Connected" : "Not connected");
+
+            ticks++;
         }
     }
 }
