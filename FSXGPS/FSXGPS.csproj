@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Aircraft.cs" />
+    <Compile Include="Data\Attitude.cs" />
+    <Compile Include="Data\IHaveOffsets.cs" />
+    <Compile Include="Data\Position.cs" />
+    <Compile Include="FSUIPC\IOffsetData.cs" />
+    <Compile Include="FSUIPC\OffsetData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

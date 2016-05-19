@@ -7,7 +7,9 @@ namespace FSXGPS.Services
     {
         bool Connected { get; }
 
-        Aircraft Aircraft { get; }
+        Position Position { get; }
+
+        Attitude Attitude { get; }
 
         void Update();
     }
